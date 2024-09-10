@@ -1,0 +1,12 @@
+
+-- Create a very simple GUI interface hosted on AWS EC2 instance (feel free to use any framework  e.g., django) -- at Omindmind we use Node.js 
+-- two model dumps (1st for forecasting of sales price and 2nd for house price prediction) are provided. 
+-- Tain and test datasets are also provided with data description.
+-- A python script is there showing how the model has been trained. 
+-- Integrate the model end-points with GUI you developed in previous step.
+-- Predict the sales price for each house. For each Id in the test set, you must predict the value of the SalePrice variable. 
+
+MAIN TASKS : 
+-- Demonstrate that model can be tested using GUI (for example, if we provide house ID, it tells me what could be the estimated 
+   sale price of the house) 
+-- Also , create a plot on UI dashboard using chart.js, or  D3.js libraries showing sales price forecasting(time-series)

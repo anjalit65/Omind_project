@@ -1,0 +1,27 @@
+Data Description
+Purpose
+This dataset is used for time series forecasting, specifically to predict future sales based on historical sales data. The dataset includes information on customer orders, shipping details, and sales amounts.
+
+Attributes
+Row ID: Unique identifier for each row in the dataset.
+Order ID: Unique identifier for each order. Multiple rows with the same Order ID indicate multiple products ordered under a single transaction.
+Order Date: The date when the order was placed. This is used to aggregate sales data over time.
+Ship Date: The date when the order was shipped. This is important for understanding shipping times but is not directly used in forecasting sales.
+Ship Mode: The shipping method used for the order (e.g., Second Class, Standard Class). This can affect shipping time and potentially customer satisfaction but is not directly used for forecasting.
+Customer ID: Unique identifier for the customer who placed the order.
+Customer Name: The name of the customer. This is more for reference and does not influence forecasting.
+Segment: The segment of the customer (e.g., Consumer, Corporate). This can help in segment-wise analysis but is not used directly in the sales forecasting model.
+Country: The country where the order was placed.
+City: The city where the order was placed.
+State: The state where the order was placed.
+Postal Code: The postal code for the delivery address.
+Region: The geographical region where the order was placed (e.g., South, West).
+Product ID: Unique identifier for the product ordered.
+Category: The broad category of the product (e.g., Furniture, Office Supplies).
+Sub-Category: The specific sub-category of the product (e.g., Chairs, Labels).
+Product Name: The name of the product ordered.
+Sales: The sales amount for the product ordered. This is the target variable used for forecasting.
+Data Summary
+Total Records: 9,800
+Sales Column: The primary focus for forecasting. The sales values range from 0.444 to 22,638.480, with an average sales amount of approximately 230.77.
+Time Span: The dataset covers sales over various months and years, allowing for monthly aggregation and forecasting.

@@ -4,18 +4,18 @@ from pydantic import BaseModel
 import joblib
 import numpy as np
 # Load the model and preprocessor
-rf_model_best = joblib.load('/Users/anjalitripathi/Downloads/MLOPs_Assignment_Anjali/House Price Prediction/random_forest_model_best.pkl')
-preprocessor = joblib.load('/Users/anjalitripathi/Downloads/MLOPs_Assignment_Anjali/House Price Prediction/preprocessor.pkl')
+rf_model_best = joblib.load('../House Price Prediction/random_forest_model_best.pkl')
+preprocessor = joblib.load('../House Price Prediction/preprocessor.pkl')
 
-test_df = pd.read_csv('/Users/anjalitripathi/Downloads/MLOPs_Assignment_Anjali/House Price Prediction/test.csv')
-
+test_df = pd.read_csv('../House Price Prediction/test.csv')
+forecast_model_path = '../Sales Forecasting/sales_forecasting_model.pkl'
 # Initialize FastAPI app
 app = FastAPI()
 
 class IDRequest(BaseModel):
     house_id: int
 
-@app.post("/predict/")
+@app.post("/house_price/predict/")
 def predict(request: IDRequest):
     # Fetch the row with the specified ID from test.csv
     row = test_df[test_df['Id'] == request.house_id]
@@ -38,4 +38,25 @@ def predict(request: IDRequest):
     predicted_price = prediction[0] if isinstance(prediction, (list, np.ndarray)) else prediction
     
     # Return the prediction along with the 'Id'
-    return {"Id": request.house_id, "predicted_price": predicted_price}
+    return {"Id": request.house_id, "predicted_price": int(predicted_price)}
+
+@app.post("/sales_forecast/")
+def forecast(periods: int):
+
+    try:
+        model_fit = joblib.load(forecast_model_path)
+        # Generate forecast
+        forecast = model_fit.forecast(steps=periods)
+        print(forecast)
+        forecast_df = pd.DataFrame({'Forecast': forecast},)
+
+        # Round forecast values to 2 decimal places
+        forecast_df['Forecast'] = forecast_df['Forecast'].round(2)
+        print(forecast_df)
+
+        # Convert the DataFrame to a dictionary
+        forecast_dict = forecast_df.reset_index().to_dict(orient='records')
+        return {"forecast": forecast_dict}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
